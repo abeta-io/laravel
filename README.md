@@ -20,6 +20,8 @@ composer require abeta-io/laravel
 
 use AbetaIO\Laravel\AbetaPunchout;
 
+// Don't forget to make the necessary changes to your VerifyCsrfToken file!
+
 //Create an endpoint for the setupRequest
 Route::post('/abeta-setup-request', function (Request $request) {
     return AbetaPunchout::setupRequest($request);
