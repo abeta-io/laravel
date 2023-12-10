@@ -1,0 +1,22 @@
+{
+    "name": "abeta-io/laravel",
+    "description": "Abeta extension for Laravel",
+    "license": [
+      "OSL-3.0",
+      "AFL-3.0"
+    ],
+    "autoload": {
+      "psr-4": {
+        "AbetaIO\\Laravel\\": "src"
+      },
+      "files": [
+        "src/helpers.php"
+      ]
+    },
+    "require": {
+      "php": "~7.0|~8.0"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "^8.1"
+    }
+  }
