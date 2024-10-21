@@ -13,11 +13,43 @@ class AbetaServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function register()
     {
         $this->app->singleton('abeta', function ($app) {
-            return new AbetaPunchOut;
+            return new AbetaPunchOut();
         });
+
+        // Load config
+        $this->mergeConfigFrom(__DIR__ . '/../config/abeta.php', 'abeta');
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->configurePublishing();
+
+        if (config('abeta.routes.load')) {
+            $this->loadRoutesFrom(__DIR__ . '/../routes/abeta.php');
+        }
+    }
+
+    protected function configurePublishing()
+    {
+        // Publish config file
+        $this->publishes(
+            [__DIR__ . '/../config' => $this->app->basePath('config')],
+            ['abeta', 'abeta-config']
+        );
+
+        // Publish routes file
+        $this->publishes(
+            [__DIR__ . '/../routes' => $this->app->basePath('routes')],
+            ['abeta', 'abeta-routes']
+        );
     }
 
     /**
@@ -29,6 +61,5 @@ class AbetaServiceProvider extends ServiceProvider
     {
         return ['abeta'];
     }
-
 }
     
