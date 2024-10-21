@@ -12,6 +12,16 @@ Install via composer:
 composer require abeta-io/laravel
 ```
 
+### Publish the config file
+```
+php artisan vendor:publish --tag abeta-config
+```
+
+### Publish the routes file
+```
+php artisan vendor:publish --tag abeta-routes
+```
+
 ## Quick start
 
 ### Using the class
@@ -22,18 +32,7 @@ use AbetaIO\Laravel\AbetaPunchout;
 
 // Don't forget to make the necessary changes to your VerifyCsrfToken file!
 
-//Create an endpoint for the setupRequest
-Route::post('/abeta-setup-request', function (Request $request) {
-    return AbetaPunchout::setupRequest($request);
-});
-
-//Create an endpoint for a login
-Route::post('/abeta-login', function (Request $request) {
-    $loggedInUser = AbetaPunchout::login($request);
-    // redirect logged in user to shop
-});
-
-//Create an endpoint for a login
+//Create an endpoint for a return cart
 Route::post('/abeta-cart', function (Request $request) {
     //Return Cart and Product Model or Array to Abeta
     $returned = AbetaPunchout::returnCart($cart, $products);
@@ -57,11 +56,21 @@ if( is_abeta_punchout_user() ) {
 
 ```
 
+## Configuration
+### Customizing Routes
+The package provides predefined routes for handling login operations. If you prefer to customize these routes, you can configure the following options in config/abeta.php:
+
+```php
+'routes' => [
+    'load' => true,
+    'prefix' => 'abeta',
+    'redirectTo' => '/',
+],
+```
 
 ### Using other model than User model
 
-Want to use another model than Laravels default User model? Create a config file called abeta.php (in the config/ folder).
-After that replace the desired values by your own.
+Want to use another model than Laravels default User model? 
 
 ```php
 
