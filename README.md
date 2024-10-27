@@ -52,12 +52,14 @@ $product = new Product(
 // Add product to cart
 $cart->addProduct($product);
 
-// Execure the Return Cart
-$returnCart = new ReturnCart($cartBuilder);
-$returnCart->execute();
+// Optional: Set a custom return URL instead of using session
+ReturnCart::setReturnUrl('http://example.com/custom-return-url');
+
+// Execute the Return Cart
+ReturnCart::execute();
 
 // Return Customer to Abeta
-$returnCart->redirectCustomer();
+ReturnCart::returnCustomer();
 
 ```
 
