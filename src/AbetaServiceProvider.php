@@ -2,6 +2,8 @@
 
 namespace AbetaIO\Laravel;
 
+use AbetaIO\Laravel\Services\Cart\CartBuilder;
+use AbetaIO\Laravel\Services\Cart\ReturnCart;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -17,6 +19,10 @@ class AbetaServiceProvider extends ServiceProvider
     {
         $this->app->singleton('abeta', function ($app) {
             return new AbetaPunchOut();
+        });
+
+        $this->app->singleton('return-cart', function ($app) {
+            return new ReturnCart(new CartBuilder());
         });
 
         // Load config
@@ -59,7 +65,7 @@ class AbetaServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['abeta'];
+        return ['abeta', 'return-cart'];
     }
 }
     
