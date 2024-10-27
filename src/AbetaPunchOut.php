@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\URL;
  */
 class AbetaPunchOut
 {
-    
-
     /**
      * Check if customer is logged in via PunchOut
      *
@@ -37,43 +35,6 @@ class AbetaPunchOut
         }
 
         return false;
-    }
-
-    /**
-     * Return the cart to Abeta
-     *
-     * @param Model|Array $cart_general
-     * @param Model|Array $products
-     * @return Bool
-     */
-    public static function returnCart($cart_general = [], $products = [])
-    {
-        $return_url = request()->session()->get('abeta_punchout.return_url');
-
-        $response = Http::timeout(5)
-            ->retry(3)
-            ->post($return_url, [
-                'general' => $cart_general,
-                'products' => $products,
-            ]);
-
-        return $response->successful();
-    }
-
-    /**
-     * Return the customer to Abeta
-     *
-     * @param Model|Array $cart_general
-     * @param Model|Array $products
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public static function returnCustomer()
-    {
-        $return_url = request()->session()->get('abeta_punchout.return_url');
-
-        request()->session()->flush();
-
-        return redirect($return_url);
     }
 
     public static function getAuth()
