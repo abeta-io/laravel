@@ -24,23 +24,40 @@ php artisan vendor:publish --tag abeta-routes
 
 ## Quick start
 
-### Using the class
-
+### Return cart Facade
 ```php
+use AbetaIO\Laravel\Models\Product;
+use AbetaIO\Laravel\Facades\ReturnCart;
 
-use AbetaIO\Laravel\AbetaPunchout;
+$cart = ReturnCart::builder()->setGeneral([
+    'cart_id' => '12345',
+    'total' => 150.00,
+    'currency' => 'EUR'
+]);
 
-// Don't forget to make the necessary changes to your VerifyCsrfToken file!
+// Create Product instance
+$product = new Product(
+    id: 1,
+    sku: 'PROD-001',
+    name: 'Product Name',
+    description: 'Product description here',
+    price_ex_vat: 50.00,
+    price_inc_vat: 60.00,
+    vat_percentage: 20.00,
+    quantity: 2,
+    image_url: 'http://example.com/image.jpg',
+    categories: ['Category 1', 'Category 2'],
+);
 
-//Create an endpoint for a return cart
-Route::post('/abeta-cart', function (Request $request) {
-    //Return Cart and Product Model or Array to Abeta
-    $returned = AbetaPunchout::returnCart($cart, $products);
+// Add product to cart
+$cart->addProduct($product);
 
-    //Return Customer to Abeta
-    return AbetaPunchout::returnCustomer();
-});
+// Execure the Return Cart
+$returnCart = new ReturnCart($cartBuilder);
+$returnCart->execute();
 
+// Return Customer to Abeta
+$returnCart->redirectCustomer();
 
 ```
 
