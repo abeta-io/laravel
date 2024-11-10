@@ -18,7 +18,7 @@ class CartBuilder
      */
     public function setGeneral(array $general): self
     {
-        $requiredFields = ['cart_id', 'total', 'currency'];
+        $requiredFields = ['cart_id', 'total', 'currency', 'delivery_datetime'];
         
         foreach ($requiredFields as $field) {
             if (!array_key_exists($field, $general)) {

@@ -32,7 +32,8 @@ use AbetaIO\Laravel\Facades\ReturnCart;
 $cart = ReturnCart::builder()->setGeneral([
     'cart_id' => '12345',
     'total' => 150.00,
-    'currency' => 'EUR'
+    'currency' => 'EUR',
+    'delivery_datetime' => '2024-11-10 20:29'
 ]);
 
 // Create Product instance
@@ -45,6 +46,12 @@ $product = new Product(
     price_inc_vat: 60.00,
     vat_percentage: 20.00,
     quantity: 2,
+    price_unit: 30,
+    unit: 'pcs',
+    brand: 'Brand Name',
+    weight: 1.5,
+    manufacturer_number: 'MANUF-001',
+    category_codes: ['47101501'],
     image_url: 'http://example.com/image.jpg',
     categories: ['Category 1', 'Category 2'],
 );

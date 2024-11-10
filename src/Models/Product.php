@@ -13,6 +13,12 @@ class Product
         public float $price_inc_vat,
         public float $vat_percentage,
         public int $quantity,
+        public ?float $price_unit,
+        public ?string $unit,
+        public ?string $brand,
+        public ?string $weight,
+        public ?string $manufacturer_number,
+        public ?array $category_codes = [],
         public ?string $image_url = null,
         public ?array $categories = []
     ) {
@@ -51,6 +57,12 @@ class Product
             'price_inc_vat' => $this->price_inc_vat,
             'vat_percentage' => $this->vat_percentage,
             'quantity' => $this->quantity,
+            'price_unit' => $this->price_unit,
+            'unit' => $this->unit,
+            'brand' => $this->brand,
+            'weight' => $this->weight,
+            'manufacturer_number' => $this->manufacturer_number,
+            'category_codes' => $this->category_codes,
             'image_url' => $this->image_url,
             'categories' => $this->categories,
         ];
