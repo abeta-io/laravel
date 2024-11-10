@@ -38,6 +38,11 @@ class AbetaServiceProvider extends ServiceProvider
     {
         $this->configurePublishing();
 
+        $this->app['router']->middlewareGroup('abeta_session', [
+            \Illuminate\Cookie\Middleware\EncryptCookies::class,
+            \Illuminate\Session\Middleware\StartSession::class
+        ]);
+
         if (config('abeta.routes.load')) {
             $this->loadRoutesFrom(__DIR__ . '/../routes/abeta.php');
         }
