@@ -34,6 +34,8 @@ class LoginController
             return redirect()->intended(config('abeta.routes.redirectTo'));
         }
 
-        throw new \Exception('User not found');
+        return AbetaPunchOut::returnResponse([
+            'error' => "User not found",
+        ], 404);
     }
 }
