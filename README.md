@@ -82,6 +82,124 @@ if( is_abeta_punchout_user() ) {
 
 ```
 
+## Order Confirmation Integration
+The package provides two approaches for handling order confirmation: event listeners or callback functions. This flexibility simplifies the integration of the order processing flow into various systems.
+
+### Option 1: Using Event Listeners
+It is possible to listen to the OrderReceived event to handle order confirmation data. The event provides access to a structured Order DTO, making it easy to retrieve order details.
+
+Example Listener:
+
+```php
+namespace App\Listeners;
+
+use AbetaIO\Laravel\Events\OrderReceived;
+
+class HandleOrder
+{
+    public function handle(OrderReceived $event)
+    {
+        $order = $event->orderData;
+
+        // Access general order information
+        \Log::info('Order Received', [
+            'Cart ID' => $order->cart_id,
+            'Total' => $order->total,
+            'Currency' => $order->currency,
+        ]);
+
+        // Access billing address
+        $billingCity = $order->billTo->city;
+        \Log::info('Billing City', ['City' => $billingCity]);
+
+        // Access products
+        foreach ($order->products as $product) {
+            \Log::info('Product Details', [
+                'Name' => $product->name,
+                'Quantity' => $product->quantity,
+                'Price' => $product->price_ex_vat,
+            ]);
+        }
+    }
+}
+```
+**Registering the Listener**
+
+Ensure the listener is registered in the EventServiceProvider:
+
+```php
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use AbetaIO\Laravel\Events\OrderReceived;
+use App\Listeners\HandleOrder;
+
+class EventServiceProvider extends ServiceProvider
+{
+    protected $listen = [
+        OrderReceived::class => [
+            HandleOrder::class,
+        ],
+    ];
+}
+```
+
+### Option 2: Using the Callback Function
+Alternatively, the onOrderProcessed callback function can be used to handle order data. This approach is useful for inline or quick customizations.
+
+Example Callback inside AppServiceProvider:
+
+```php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use AbetaIO\Laravel\Services\OrderService;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        OrderService::onOrderProcessed(function ($order) {
+            \Log::info('Order Processed', [
+                'Cart ID' => $order->cart_id,
+                'Customer Reference' => $order->customer_reference,
+                'Total Amount' => $order->total,
+            ]);
+
+            foreach ($order->products as $product) {
+                \Log::info('Product Info', [
+                    'Name' => $product->name,
+                    'Quantity' => $product->quantity,
+                ]);
+            }
+        });
+    }
+}
+```
+
+### Order DTO Structure
+The Order DTO provides an object-oriented structure for accessing order data:
+| Property             | Description                         |
+| -------------------- | ----------------------------------- |
+| `cart_id`            | Unique identifier for the cart      |
+| `total`              | Total order amount                  |
+| `currency`           | Order currency (e.g., `EUR`)        |
+| `delivery_datetime`  | Delivery date and time              |
+| `order_reference`    | Reference number for the order      |
+| `customer_reference` | Reference number for the customer   |
+| `products`           | Collection of `Product` objects     |
+| `billTo`             | Billing address (`Address` object)  |
+| `shippTo`            | Shipping address (`Address` object) |
+
+
+### Converting Order to Array
+To convert the Order DTO to an array for further processing:
+
+```php
+$orderArray = $order->toArray();
+\Log::info('Order as Array', $orderArray);
+```
+
 ## Configuration
 ### Customizing Routes
 The package provides predefined routes for handling login operations. If you prefer to customize these routes, you can configure the following options in config/abeta.php:
