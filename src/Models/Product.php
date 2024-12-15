@@ -41,6 +41,29 @@ class Product
         }
     }
 
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            $data['id'] ?? 0,
+            $data['sku'] ?? '',
+            $data['name'] ?? '',
+            $data['description'] ?? '',
+            $data['price_ex_vat'] ?? 0.0,
+            $data['price_inc_vat'] ?? 0.0,
+            $data['vat_percentage'] ?? 0.0,
+            $data['quantity'] ?? 1,
+            $data['price_unit'] ?? null,
+            $data['unit'] ?? null,
+            $data['brand'] ?? null,
+            $data['weight'] ?? null,
+            $data['manufacturer_number'] ?? null,
+            $data['category_codes'] ?? [],
+            $data['image_url'] ?? null,
+            $data['categories'] ?? []
+        );
+    }
+
     /**
      * Convert the product to an array.
      *
