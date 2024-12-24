@@ -10,7 +10,7 @@ use InvalidArgumentException;
 
 class OrderService
 {
-    protected $callbacks = [];
+    protected static $callbacks = [];
 
     /**
      * Process the order.
@@ -31,7 +31,7 @@ class OrderService
         event(new OrderReceived($standardizedOrder));
 
         // Step 4: Invoke any registered callbacks
-        foreach ($this->callbacks as $callback) {
+        foreach (self::$callbacks as $callback) {
             call_user_func($callback, $standardizedOrder);
         }
 
@@ -69,7 +69,7 @@ class OrderService
         return new Order(
             $orderData['cart_id'] ?? null,
             $orderData['total'] ?? 0.0,
-            $orderData['currency'] ?? 'USD',
+            $orderData['currency'] ?? 'EUR',
             $orderData['delivery_datetime'] ?? null,
             $orderData['order_reference'] ?? null,
             $orderData['customer_reference'] ?? null,
@@ -84,8 +84,8 @@ class OrderService
      *
      * @param callable $callback
      */
-    public function onOrderProcessed(callable $callback): void
+    public static function onOrderProcessed(callable $callback): void
     {
-        $this->callbacks[] = $callback;
+        self::$callbacks[] = $callback;
     }
 }

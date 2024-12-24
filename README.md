@@ -153,21 +153,22 @@ Example Callback inside AppServiceProvider:
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use AbetaIO\Laravel\Services\OrderService;
+use Illuminate\Support\Facades\Log;
+use AbetaIO\Laravel\Services\Order\OrderService;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         OrderService::onOrderProcessed(function ($order) {
-            \Log::info('Order Processed', [
+            Log::info('Order Processed', [
                 'Cart ID' => $order->cart_id,
                 'Customer Reference' => $order->customer_reference,
                 'Total Amount' => $order->total,
             ]);
 
             foreach ($order->products as $product) {
-                \Log::info('Product Info', [
+                Log::info('Product Info', [
                     'Name' => $product->name,
                     'Quantity' => $product->quantity,
                 ]);
