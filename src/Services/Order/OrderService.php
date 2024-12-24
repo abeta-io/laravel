@@ -21,16 +21,12 @@ class OrderService
      */
     public function processOrder(array $orderData): Order
     {
-        // Step 1: Validate the order
         $this->validateOrder($orderData);
 
-        // Step 2: Standardize the order structure
         $standardizedOrder = $this->standardizeOrder($orderData);
 
-        // Step 3: Trigger the OrderReceived event
         event(new OrderReceived($standardizedOrder));
 
-        // Step 4: Invoke any registered callbacks
         foreach (self::$callbacks as $callback) {
             call_user_func($callback, $standardizedOrder);
         }
