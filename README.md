@@ -94,6 +94,7 @@ Example Listener:
 namespace App\Listeners;
 
 use AbetaIO\Laravel\Events\OrderReceived;
+use Illuminate\Support\Facades\Log;
 
 class HandleOrder
 {
@@ -102,7 +103,7 @@ class HandleOrder
         $order = $event->orderData;
 
         // Access general order information
-        \Log::info('Order Received', [
+        Log::info('Order Received', [
             'Cart ID' => $order->cart_id,
             'Total' => $order->total,
             'Currency' => $order->currency,
@@ -110,11 +111,11 @@ class HandleOrder
 
         // Access billing address
         $billingCity = $order->billTo->city;
-        \Log::info('Billing City', ['City' => $billingCity]);
+        Log::info('Billing City', ['City' => $billingCity]);
 
         // Access products
         foreach ($order->products as $product) {
-            \Log::info('Product Details', [
+            Log::info('Product Details', [
                 'Name' => $product->name,
                 'Quantity' => $product->quantity,
                 'Price' => $product->price_ex_vat,
@@ -124,8 +125,7 @@ class HandleOrder
 }
 ```
 **Registering the Listener**
-
-Ensure the listener is registered in the EventServiceProvider:
+By default, Laravel will automatically find and register your event listeners by scanning your application's Listeners directory. However, if event discovery is disabled in your project, you will need to register the listener manually in the EventServiceProvider. To do so, follow these steps:
 
 ```php
 namespace App\Providers;
