@@ -178,6 +178,21 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
+### Error Handling
+The plugin uses a custom exception, `OrderProcessingException`, to handle errors during order processing. This exception ensures that errors are properly caught and returned as structured messages by the controller.
+
+The plugin validates incoming data in the controller and returns error messages in the response when validation fails. However, you can also implement custom error handling logic in your event listener or callback function.
+
+```php
+use AbetaIO\Laravel\Exceptions\OrderProcessingException;
+
+OrderService::onOrderProcessed(function ($order) {
+    if (!$order->cart_id) {
+        throw new OrderProcessingException('Cart ID is missing.');
+    }
+});
+```
+
 ### Order DTO Structure
 The Order DTO provides an object-oriented structure for accessing order data:
 | Property             | Description                         |
