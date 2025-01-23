@@ -9,6 +9,7 @@ use AbetaIO\Laravel\Services\Order\OrderService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class OrderController
 {
@@ -18,7 +19,7 @@ class OrderController
      * @param Request $request
      * @return Response
      */
-    public function confirm(Request $request, OrderService $orderService)
+    public function confirm(Request $request, OrderService $orderService) : JsonResponse
     {
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');

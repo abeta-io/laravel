@@ -17,7 +17,7 @@ class OrderService
      * Process the order.
      *
      * @param array $orderData
-     * @return bool
+     * @return Order
      * @throws \Exception
      */
     public function processOrder(array $orderData): Order

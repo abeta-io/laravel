@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace AbetaIO\Laravel\Http\Controllers;
 
 use AbetaIO\Laravel\AbetaPunchOut;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -15,7 +17,7 @@ class LoginController
      * @param Request $request
      * @return Model
      */
-    public function login(Request $request)
+    public function login(Request $request) : JsonResponse | RedirectResponse
     {
         abort_unless($request->hasValidSignature(), 404);
 

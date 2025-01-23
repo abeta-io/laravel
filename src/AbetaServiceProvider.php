@@ -16,7 +16,7 @@ class AbetaServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register() : void
     {
         $this->app->singleton('abeta', function ($app) {
             return new AbetaPunchOut();
@@ -35,7 +35,7 @@ class AbetaServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot() : void
     {
         $this->configurePublishing();
 
@@ -49,7 +49,7 @@ class AbetaServiceProvider extends ServiceProvider
         }
     }
 
-    protected function configurePublishing()
+    protected function configurePublishing() : void
     {
         // Publish config file
         $this->publishes(
@@ -69,7 +69,7 @@ class AbetaServiceProvider extends ServiceProvider
      *
      * @return array
      */
-    public function provides()
+    public function provides() : array
     {
         return ['abeta', 'return-cart'];
     }

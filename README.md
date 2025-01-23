@@ -66,7 +66,7 @@ ReturnCart::setReturnUrl('http://example.com/custom-return-url');
 ReturnCart::execute();
 
 // Return Customer to Abeta
-ReturnCart::returnCustomer();
+return ReturnCart::returnCustomer();
 
 ```
 

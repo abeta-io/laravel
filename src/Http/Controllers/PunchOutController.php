@@ -5,6 +5,7 @@ namespace AbetaIO\Laravel\Http\Controllers;
 
 use AbetaIO\Laravel\AbetaPunchOut;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
@@ -16,7 +17,7 @@ class PunchOutController
      * @param Request $request
      * @return Response
      */
-    public function setupRequest(Request $request)
+    public function setupRequest(Request $request) : JsonResponse
     {
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
@@ -34,9 +35,7 @@ class PunchOutController
             AbetaPunchOut::getCredentialUsername() => $username_email,
             AbetaPunchOut::getCredentialPassword() => $request->input('password')
         ])) {
-            return response()->json([
-                'message' => 'Credentials seem to be invalid'
-            ], 404);
+            return AbetaPunchOut::returnResponse(['message' => 'Credentials seem to be invalid'], 404);
         } else {
             $user = AbetaPunchOut::getCustomerModel()::where(
                 AbetaPunchOut::getCredentialUsername(),

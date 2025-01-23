@@ -89,7 +89,7 @@ class ReturnCart
      *
      * @return CartBuilder
      */
-    public function builder()
+    public function builder() : CartBuilder
     {
         return $this->builder;
     }

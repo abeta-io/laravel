@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace AbetaIO\Laravel\DataObjects;
 
-
 class Address
 {
     public $first_name;
