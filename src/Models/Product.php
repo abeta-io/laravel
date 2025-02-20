@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AbetaIO\Laravel\Models;
@@ -9,15 +10,15 @@ class Product
         public int|string $id,
         public string $sku,
         public string $name,
-        public string $description,
+        public ?string $description,
         public float $price_ex_vat,
-        public float $price_inc_vat,
-        public float $vat_percentage,
+        public ?float $price_inc_vat,
+        public ?float $vat_percentage,
         public int $quantity,
         public ?float $price_unit,
         public ?string $unit,
         public ?string $brand,
-        public ?string $weight,
+        public ?float $weight,
         public ?string $manufacturer_number,
         public ?array $category_codes = [],
         public ?string $image_url = null,
@@ -33,15 +34,14 @@ class Product
      */
     protected function validate(): void
     {
-        $requiredFields = ['id', 'sku', 'name', 'description', 'price_ex_vat', 'price_inc_vat', 'vat_percentage', 'quantity'];
-        
+        $requiredFields = ['id', 'sku', 'name', 'price_ex_vat', 'quantity'];
+
         foreach ($requiredFields as $field) {
             if (empty($this->{$field})) {
                 throw new \InvalidArgumentException("The {$field} field is required.");
             }
         }
     }
-
 
     public static function fromArray(array $data): self
     {
@@ -67,8 +67,6 @@ class Product
 
     /**
      * Convert the product to an array.
-     *
-     * @return array
      */
     public function toArray(): array
     {
