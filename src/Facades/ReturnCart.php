@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
@@ -12,10 +14,8 @@ class ReturnCart extends Facade
 {
     /**
      * Get the registered name of the component.
-     *
-     * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'return-cart';
     }

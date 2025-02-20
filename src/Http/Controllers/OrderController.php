@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel\Http\Controllers;
 
 use AbetaIO\Laravel\AbetaPunchOut;
 use AbetaIO\Laravel\Exceptions\OrderProcessingException;
 use AbetaIO\Laravel\Services\Order\OrderService;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -14,10 +17,9 @@ class OrderController
     /**
      * Check if SetupRequest is valid and respond with one_time_url
      *
-     * @param Request $request
      * @return Response
      */
-    public function confirm(Request $request, OrderService $orderService)
+    public function confirm(Request $request, OrderService $orderService): JsonResponse
     {
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
@@ -25,14 +27,14 @@ class OrderController
         if (is_null($apiKey)) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
-                'message' => 'API key is not set in configuration'
+                'message' => 'API key is not set in configuration',
             ], 500);
         }
 
         if ($request->input('api_key') !== $apiKey) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
-                'message' => 'Api key is invalid'
+                'message' => 'Api key is invalid',
             ], 401);
         }
 
@@ -51,11 +53,11 @@ class OrderController
                 'error' => $e->getMessage(),
             ], 422);
         } catch (Exception $e) {
-            Log::error('Order confirmation error: ' . $e->getMessage(), $e->getTrace());
+            Log::error('Order confirmation error: '.$e->getMessage(), $e->getTrace());
 
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
-                'error' => "Server error",
+                'error' => 'Server error',
             ], 503);
         }
     }

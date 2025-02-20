@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
 * Configuration of the Abeta Punchout Package, used to offer OCI and cXML via the Abeta Middleware.
 */

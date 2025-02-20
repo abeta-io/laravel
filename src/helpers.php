@@ -1,6 +1,8 @@
 <?php
 
-if (!function_exists('is_abeta_punchout_user')) {
+declare(strict_types=1);
+
+if (! function_exists('is_abeta_punchout_user')) {
     /**
      * Check if user is logged in via the Abeta PunchOut Middleware
      *
@@ -8,6 +10,6 @@ if (!function_exists('is_abeta_punchout_user')) {
      */
     function is_abeta_punchout_user()
     {
-    	return \AbetaIO\Laravel\AbetaPunchOut::isPunchoutUser();
+        return \AbetaIO\Laravel\AbetaPunchOut::isPunchoutUser();
     }
 }

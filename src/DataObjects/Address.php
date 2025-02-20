@@ -1,20 +1,31 @@
 <?php
 
-namespace AbetaIO\Laravel\DataObjects;
+declare(strict_types=1);
 
+namespace AbetaIO\Laravel\DataObjects;
 
 class Address
 {
     public $first_name;
+
     public $last_name;
+
     public $company;
+
     public $address_1;
+
     public $address_2;
+
     public $city;
+
     public $state;
+
     public $postcode;
+
     public $country;
+
     public $email;
+
     public $phone;
 
     public function __construct(
@@ -63,17 +74,17 @@ class Address
     public function toArray(): array
     {
         return [
-            "first_name" => $this->first_name,
-            "last_name" => $this->last_name,
-            "company" => $this->company,
-            "address_1" => $this->address_1,
-            "address_2" => $this->address_2,
-            "city" => $this->city,
-            "state" => $this->state,
-            "postcode" => $this->postcode,
-            "country" => $this->country,
-            "email" => $this->email,
-            "phone" => $this->phone,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'company' => $this->company,
+            'address_1' => $this->address_1,
+            'address_2' => $this->address_2,
+            'city' => $this->city,
+            'state' => $this->state,
+            'postcode' => $this->postcode,
+            'country' => $this->country,
+            'email' => $this->email,
+            'phone' => $this->phone,
         ];
     }
 }

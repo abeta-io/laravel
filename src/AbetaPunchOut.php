@@ -1,26 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel;
 
-use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Http\JsonResponse;
 
 /**
- * @author Abeta 
+ * @author Abeta
  * @author info@abeta.nl
  */
 class AbetaPunchOut
 {
     /**
      * Check if customer is logged in via PunchOut
-     *
-     * @return bool
      */
-    public static function isPunchoutUser()
+    public static function isPunchoutUser(): bool
     {
         if (! request()->session()->has('abeta_punchout')) {
             return false;
@@ -37,27 +32,27 @@ class AbetaPunchOut
         return false;
     }
 
-    public static function getAuth()
+    public static function getAuth(): string
     {
         return config('abeta.auth') ?? '\Illuminate\Support\Facades\Auth';
     }
 
-    public static function getCustomerModel()
+    public static function getCustomerModel(): string
     {
         return config('abeta.customerModel') ?? '\App\Models\User';
     }
 
-    public static function getCredentialUsername()
+    public static function getCredentialUsername(): string
     {
         return config('abeta.username') ?? 'email';
     }
 
-    public static function getCredentialPassword()
+    public static function getCredentialPassword(): string
     {
         return config('abeta.password') ?? 'password';
     }
 
-    public static function returnResponse($message, $code)
+    public static function returnResponse($message, $code): JsonResponse
     {
         return response()->json($message, $code);
     }

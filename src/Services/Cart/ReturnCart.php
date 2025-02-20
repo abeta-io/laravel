@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel\Services\Cart;
 
 use AbetaIO\Laravel\Exceptions\ReturnCartException;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 class ReturnCart
 {
     protected $builder;
+
     protected ?string $returnUrl = null;
 
     public function __construct(CartBuilder $builder)
@@ -25,29 +28,29 @@ class ReturnCart
     /**
      * Set or override the return URL.
      *
-     * @param string $url
      * @return $this
      */
     public function setReturnUrl(string $url): self
     {
         $this->returnUrl = $url;
+
         return $this;
     }
 
     /**
      * Execute the return cart request.
      *
-     * @param string|null $returnUrl
-     * @return bool
+     * @param  string|null  $returnUrl
+     *
      * @throws ReturnCartException
      */
     public function execute(): bool
     {
         // Check if return URL is set, either from session or overridden
         if (is_null($this->returnUrl)) {
-            throw new ReturnCartException("The return URL is not set.");
+            throw new ReturnCartException('The return URL is not set.');
         }
-        
+
         // Build the cart data using CartBuilder
         $cartData = $this->builder->build();
 
@@ -57,8 +60,8 @@ class ReturnCart
             ->post($this->returnUrl, $cartData);
 
         // If the HTTP request fails, throw a custom exception
-        if (!$response->successful()) {
-            throw new ReturnCartException();
+        if (! $response->successful()) {
+            throw new ReturnCartException;
         }
 
         return true;
@@ -66,13 +69,11 @@ class ReturnCart
 
     /**
      * Return the customer to Abeta by redirecting to the return URL.
-     *
-     * @return RedirectResponse
      */
     public function returnCustomer(): RedirectResponse
     {
         if (is_null($this->returnUrl)) {
-            throw new ReturnCartException("The return URL is not set for redirection.");
+            throw new ReturnCartException('The return URL is not set for redirection.');
         }
 
         // Clear the session data if available
@@ -85,10 +86,8 @@ class ReturnCart
 
     /**
      * Get an instance of CartBuilder to build the cart details.
-     *
-     * @return CartBuilder
      */
-    public function builder()
+    public function builder(): CartBuilder
     {
         return $this->builder;
     }

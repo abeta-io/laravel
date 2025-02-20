@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel\Services\Order;
 
 use AbetaIO\Laravel\DataObjects\Address;
 use AbetaIO\Laravel\DataObjects\Order;
 use AbetaIO\Laravel\Events\OrderReceived;
 use AbetaIO\Laravel\Models\Product;
-use InvalidArgumentException;
 
 class OrderService
 {
@@ -15,8 +16,6 @@ class OrderService
     /**
      * Process the order.
      *
-     * @param array $orderData
-     * @return bool
      * @throws \Exception
      */
     public function processOrder(array $orderData): Order
@@ -37,7 +36,6 @@ class OrderService
     /**
      * Validate the order data.
      *
-     * @param array $orderData
      * @throws \Exception
      */
     private function validateOrder(array $orderData): void
@@ -49,9 +47,6 @@ class OrderService
 
     /**
      * Standardize the order structure.
-     *
-     * @param array $orderData
-     * @return Order
      */
     private function standardizeOrder(array $orderData): Order
     {
@@ -77,8 +72,6 @@ class OrderService
 
     /**
      * Register a callback for additional processing.
-     *
-     * @param callable $callback
      */
     public static function onOrderProcessed(callable $callback): void
     {

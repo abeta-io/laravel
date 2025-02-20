@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbetaIO\Laravel\Events;
 
 use AbetaIO\Laravel\DataObjects\Order;
@@ -19,8 +21,6 @@ class OrderReceived
 
     /**
      * Create a new event instance.
-     *
-     * @param Order $orderData
      */
     public function __construct(Order $orderData)
     {
