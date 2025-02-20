@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
-use Illuminate\Support\Facades\Route;
 use AbetaIO\Laravel\Http\Controllers;
+use Illuminate\Support\Facades\Route;
 
 Route::prefix(config('abeta.routes.prefix'))
     ->name('abeta.')

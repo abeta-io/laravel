@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AbetaIO\Laravel\DataObjects;
@@ -8,20 +9,29 @@ use Illuminate\Support\Collection;
 class Order
 {
     public $cart_id;
+
     public $name;
+
     public $total;
+
     public $currency;
+
     public $delivery_datetime;
+
     public $order_reference;
+
     public $customer_reference;
+
     public Collection $products;
+
     public Address $billTo;
+
     public Address $shippTo;
 
     public function __construct(
-        $cart_id, 
-        $total, 
-        $currency, 
+        $cart_id,
+        $total,
+        $currency,
         $delivery_datetime,
         $order_reference,
         $customer_reference,
@@ -42,8 +52,6 @@ class Order
 
     /**
      * Convert the Order to an array.
-     *
-     * @return array
      */
     public function toArray(): array
     {
@@ -54,7 +62,9 @@ class Order
             'delivery_datetime' => $this->delivery_datetime,
             'order_reference' => $this->order_reference,
             'customer_reference' => $this->customer_reference,
-            'products' => $this->products->map(function($product) { return $product->toArray(); })->toArray(),
+            'products' => $this->products->map(function ($product) {
+                return $product->toArray();
+            })->toArray(),
             'bill_to' => $this->billTo->toArray(),
             'shipp_to' => $this->shippTo->toArray(),
         ];

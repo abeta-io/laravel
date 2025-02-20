@@ -241,7 +241,7 @@ Want to use another model than Laravels default User model?
 */
 
 return [
-    
+
     /*
     * Customer model, used to select customer from.
     */
@@ -261,9 +261,5 @@ return [
     * String, representing database column of password
     */
     'password' => 'password',
-   
 
 ];
-
-```
-

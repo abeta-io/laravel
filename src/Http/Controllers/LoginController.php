@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AbetaIO\Laravel\Http\Controllers;
@@ -14,19 +15,18 @@ class LoginController
     /**
      * Login customer and set session
      *
-     * @param Request $request
      * @return Model
      */
-    public function login(Request $request) : JsonResponse | RedirectResponse
+    public function login(Request $request): JsonResponse|RedirectResponse
     {
         abort_unless($request->hasValidSignature(), 404);
 
         $user = AbetaPunchOut::getCustomerModel()::find($request->user_id);
-        
+
         if ($user) {
             // Log in the user
             AbetaPunchOut::getAuth()::login($user);
-    
+
             // Store return URL and user_id in the session
             Session::put('abeta_punchout', [
                 'return_url' => $request->get('return_url'),
@@ -38,7 +38,7 @@ class LoginController
         }
 
         return AbetaPunchOut::returnResponse([
-            'error' => "User not found",
+            'error' => 'User not found',
         ], 404);
     }
 }

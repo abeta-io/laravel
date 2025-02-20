@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AbetaIO\Laravel\Http\Controllers;
@@ -14,10 +15,9 @@ class PunchOutController
     /**
      * Check if SetupRequest is valid and respond with one_time_url
      *
-     * @param Request $request
      * @return Response
      */
-    public function setupRequest(Request $request) : JsonResponse
+    public function setupRequest(Request $request): JsonResponse
     {
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
@@ -33,7 +33,7 @@ class PunchOutController
 
         if (! AbetaPunchOut::getAuth()::validate([
             AbetaPunchOut::getCredentialUsername() => $username_email,
-            AbetaPunchOut::getCredentialPassword() => $request->input('password')
+            AbetaPunchOut::getCredentialPassword() => $request->input('password'),
         ])) {
             return AbetaPunchOut::returnResponse(['message' => 'Credentials seem to be invalid'], 404);
         } else {
