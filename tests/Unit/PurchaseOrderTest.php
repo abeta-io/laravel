@@ -66,7 +66,11 @@ class PurchaseOrderTest extends TestCase
                     $event->orderData->shippTo->postcode == $po['shipping']['postcode'] &&
                     $event->orderData->shippTo->country == $po['shipping']['country'] &&
                     $event->orderData->shippTo->email == $po['shipping']['email'] &&
-                    $event->orderData->shippTo->phone == $po['shipping']['phone'];
+                    $event->orderData->shippTo->phone == $po['shipping']['phone'] &&
+
+                    $event->orderData->remark == $po['remark']
+                    
+                    ;
         });
     }
 
@@ -114,6 +118,8 @@ class PurchaseOrderTest extends TestCase
                 'price_ex_vat' => 50.00,
                 'quantity' => 2,
             ]],
+
+            'remark' => 'This is a customer remark'
         ];
     }
 }

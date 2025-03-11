@@ -28,6 +28,8 @@ class Order
 
     public Address $shippTo;
 
+    public $remark;
+
     public function __construct(
         $cart_id,
         $total,
@@ -38,6 +40,7 @@ class Order
         $products,
         $billTo,
         $shippTo,
+        $remark,
     ) {
         $this->cart_id = $cart_id;
         $this->total = $total;
@@ -48,6 +51,7 @@ class Order
         $this->products = $products;
         $this->billTo = $billTo;
         $this->shippTo = $shippTo;
+        $this->remark = $remark;
     }
 
     /**
@@ -67,6 +71,7 @@ class Order
             })->toArray(),
             'bill_to' => $this->billTo->toArray(),
             'shipp_to' => $this->shippTo->toArray(),
+            'remark' => $this->remark,
         ];
     }
 }
