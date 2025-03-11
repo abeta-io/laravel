@@ -39,6 +39,7 @@ class LoginController
 
         return AbetaPunchOut::returnResponse([
             'error' => 'User not found',
+            'code' => 404,
         ], 404);
     }
 }

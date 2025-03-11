@@ -16,6 +16,8 @@ class Address
 
     public $address_2;
 
+    public $street;
+
     public $city;
 
     public $state;
@@ -34,6 +36,7 @@ class Address
         $company,
         $address_1,
         $address_2,
+        $street,
         $city,
         $state,
         $postcode,
@@ -46,6 +49,7 @@ class Address
         $this->company = $company;
         $this->address_1 = $address_1;
         $this->address_2 = $address_2;
+        $this->street = $street;
         $this->city = $city;
         $this->state = $state;
         $this->postcode = $postcode;
@@ -62,6 +66,7 @@ class Address
             $data['company'] ?? null,
             $data['address_1'] ?? null,
             $data['address_2'] ?? null,
+            $data['street'] ?? null,
             $data['city'] ?? null,
             $data['state'] ?? null,
             $data['postcode'] ?? null,
@@ -79,6 +84,7 @@ class Address
             'company' => $this->company,
             'address_1' => $this->address_1,
             'address_2' => $this->address_2,
+            'street' => $this->street,
             'city' => $this->city,
             'state' => $this->state,
             'postcode' => $this->postcode,

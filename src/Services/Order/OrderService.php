@@ -66,7 +66,8 @@ class OrderService
             $orderData['customer_reference'] ?? null,
             $products,
             $billTo,
-            $shippTo
+            $shippTo,
+            $orderData['remark'],
         );
     }
 

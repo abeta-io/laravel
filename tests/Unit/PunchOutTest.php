@@ -85,9 +85,10 @@ class PunchOutTest extends TestCase
             'api_key' => $this->api_key,
         ]);
 
-        $response->assertStatus(404)
+        $response->assertStatus(401)
             ->assertJson([
                 'message' => 'Credentials seem to be invalid',
+                'error' => 401,
             ]);
     }
 
@@ -102,9 +103,10 @@ class PunchOutTest extends TestCase
             'api_key' => $this->api_key,
         ]);
 
-        $response->assertStatus(404)
+        $response->assertStatus(401)
             ->assertJson([
                 'message' => 'Credentials seem to be invalid',
+                'error' => 401,
             ]);
     }
 
@@ -122,6 +124,7 @@ class PunchOutTest extends TestCase
         $response->assertStatus(404)
             ->assertJson([
                 'message' => 'Api key is invalid',
+                'error' => 404,
             ]);
     }
 }

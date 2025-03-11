@@ -49,6 +49,7 @@ class PurchaseOrderTest extends TestCase
                     $event->orderData->billTo->company == $po['billing']['company'] &&
                     $event->orderData->billTo->address_1 == $po['billing']['address_1'] &&
                     $event->orderData->billTo->address_2 == $po['billing']['address_2'] &&
+                    $event->orderData->billTo->street == $po['billing']['street'] &&
                     $event->orderData->billTo->city == $po['billing']['city'] &&
                     $event->orderData->billTo->state == $po['billing']['state'] &&
                     $event->orderData->billTo->postcode == $po['billing']['postcode'] &&
@@ -61,12 +62,17 @@ class PurchaseOrderTest extends TestCase
                     $event->orderData->shippTo->company == $po['shipping']['company'] &&
                     $event->orderData->shippTo->address_1 == $po['shipping']['address_1'] &&
                     $event->orderData->shippTo->address_2 == $po['shipping']['address_2'] &&
+                    $event->orderData->shippTo->street == $po['shipping']['street'] &&
                     $event->orderData->shippTo->city == $po['shipping']['city'] &&
                     $event->orderData->shippTo->state == $po['shipping']['state'] &&
                     $event->orderData->shippTo->postcode == $po['shipping']['postcode'] &&
                     $event->orderData->shippTo->country == $po['shipping']['country'] &&
                     $event->orderData->shippTo->email == $po['shipping']['email'] &&
-                    $event->orderData->shippTo->phone == $po['shipping']['phone'];
+                    $event->orderData->shippTo->phone == $po['shipping']['phone'] &&
+
+                    $event->orderData->remark == $po['remark']
+                    
+                    ;
         });
     }
 
@@ -86,6 +92,7 @@ class PurchaseOrderTest extends TestCase
                 'company' => 'billing_company',
                 'address_1' => 'billing_address_1',
                 'address_2' => 'billing_address_2',
+                'street' => 'street 123',
                 'city' => 'city',
                 'state' => 'state',
                 'postcode' => '1234AB',
@@ -99,6 +106,7 @@ class PurchaseOrderTest extends TestCase
                 'company' => 'shipping_company',
                 'address_1' => 'shipping_address_1',
                 'address_2' => 'shipping_address_2',
+                'street' => null,
                 'city' => 'city',
                 'state' => 'state',
                 'postcode' => '1234AB',
@@ -114,6 +122,8 @@ class PurchaseOrderTest extends TestCase
                 'price_ex_vat' => 50.00,
                 'quantity' => 2,
             ]],
+
+            'remark' => 'This is a customer remark'
         ];
     }
 }
