@@ -35,6 +35,7 @@ class OrderController
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'message' => 'Api key is invalid',
+                'code' => 401,
             ], 401);
         }
 
@@ -51,6 +52,7 @@ class OrderController
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'error' => $e->getMessage(),
+                'code' => 401,
             ], 422);
         } catch (Exception $e) {
             Log::error('Order confirmation error: '.$e->getMessage(), $e->getTrace());
@@ -58,6 +60,7 @@ class OrderController
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'error' => 'Server error',
+                'code' => 503,
             ], 503);
         }
     }
