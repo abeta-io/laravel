@@ -52,7 +52,7 @@ class ReturnCartTest extends TestCase
             'delivery_datetime' => '2024-11-10 20:29',
         ]);
 
-        $product = new Product(
+        $product1 = new Product(
             id: 1,
             sku: 'PROD-001',
             name: 'Product Name',
@@ -71,8 +71,29 @@ class ReturnCartTest extends TestCase
             categories: ['Category 1', 'Category 2'],
         );
 
+        $cart->addProduct($product1);
+
+        $product2 = new Product(
+            id: 1,
+            sku: 'PROD-001',
+            name: 'Product Name',
+            description: 'Product description here',
+            price_ex_vat: 0,
+            price_inc_vat: 0,
+            vat_percentage: 0,
+            quantity: 0,
+            price_unit: 0,
+            unit: 'pcs',
+            brand: 'Brand Name',
+            weight: 0,
+            manufacturer_number: 'MANUF-001',
+            category_codes: ['47101501'],
+            image_url: 'http://example.com/image.jpg',
+            categories: ['Category 1', 'Category 2'],
+        );
+
         // Add product to cart
-        $cart->addProduct($product);
+        $cart->addProduct($product2);
 
         // Create the faker
         Http::fake([
