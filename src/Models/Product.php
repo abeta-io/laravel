@@ -37,7 +37,7 @@ class Product
         $requiredFields = ['id', 'sku', 'name', 'price_ex_vat', 'quantity'];
 
         foreach ($requiredFields as $field) {
-            if (empty($this->{$field})) {
+            if (!filled($this->{$field})) {
                 throw new \InvalidArgumentException("The {$field} field is required.");
             }
         }
