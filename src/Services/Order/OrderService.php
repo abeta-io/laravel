@@ -59,7 +59,7 @@ class OrderService
 
         return new Order(
             $orderData['cart_id'] ?? null,
-            $orderData['total'] ?? 0.0,
+            $orderData['total'] ? floatval($orderData['total']) : 0.0,
             $orderData['currency'] ?? 'EUR',
             $orderData['delivery_datetime'] ?? null,
             $orderData['order_reference'] ?? null,

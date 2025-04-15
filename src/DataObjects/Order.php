@@ -8,17 +8,17 @@ use Illuminate\Support\Collection;
 
 class Order
 {
-    public $cart_id;
+    public ?string $cart_id;
 
-    public $total;
+    public float $total;
 
-    public $currency;
+    public string $currency;
 
-    public $delivery_datetime;
+    public ?string $delivery_datetime;
 
-    public $order_reference;
+    public ?string $order_reference;
 
-    public $customer_reference;
+    public ?string $customer_reference;
 
     public Collection $products;
 
@@ -26,7 +26,7 @@ class Order
 
     public Address $shippTo;
 
-    public $remark;
+    public ?string $remark;
 
     public function __construct(
         $cart_id,
