@@ -10,8 +10,6 @@ class Order
 {
     public $cart_id;
 
-    public $name;
-
     public $total;
 
     public $currency;
