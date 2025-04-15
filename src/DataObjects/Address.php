@@ -6,29 +6,29 @@ namespace AbetaIO\Laravel\DataObjects;
 
 class Address
 {
-    public $first_name;
+    public ?string $first_name;
 
-    public $last_name;
+    public ?string $last_name;
 
-    public $company;
+    public ?string $company;
 
-    public $address_1;
+    public ?string $address_1;
 
-    public $address_2;
+    public ?string $address_2;
 
-    public $street;
+    public ?string $street;
 
-    public $city;
+    public ?string $city;
 
-    public $state;
+    public ?string $state;
 
-    public $postcode;
+    public ?string $postcode;
 
-    public $country;
+    public ?string $country;
 
-    public $email;
+    public ?string $email;
 
-    public $phone;
+    public ?string $phone;
 
     public function __construct(
         $first_name,
