@@ -16,6 +16,9 @@ on:
         default: ${{ github.event.release.body }}
         type: string
 
+permissions:
+  contents: write 
+
 jobs:
   update:
     runs-on: ubuntu-latest
