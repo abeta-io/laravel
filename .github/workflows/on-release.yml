@@ -1,0 +1,15 @@
+# .github/workflows/on-release.yml
+
+name: On GitHub Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  call-release-workflow:
+    uses: ./.github/workflows/release.yml
+    with:
+      branch: ${{ github.event.release.target_commitish }}
+      version: ${{ github.event.release.tag_name }}
+      notes: ${{ github.event.release.body }}
