@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use AbetaIO\Laravel\Http\Controllers;
 use Illuminate\Support\Facades\Route;
+// Comment for tet purposes
 
 Route::prefix(config('abeta.routes.prefix'))
     ->name('abeta.')
