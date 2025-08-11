@@ -22,7 +22,8 @@ class Product
         public ?string $manufacturer_number,
         public ?array $category_codes = [],
         public ?string $image_url = null,
-        public ?array $categories = []
+        public ?array $categories = [],
+        public ?array $meta = [],
     ) {
         $this->validate();
     }
@@ -61,7 +62,8 @@ class Product
             $data['manufacturer_number'] ?? null,
             $data['category_codes'] ?? [],
             $data['image_url'] ?? null,
-            $data['categories'] ?? []
+            $data['categories'] ?? [],
+            $data['meta'] ?? []
         );
     }
 
@@ -87,6 +89,7 @@ class Product
             'category_codes' => $this->category_codes,
             'image_url' => $this->image_url,
             'categories' => $this->categories,
+            'meta' => $this->meta,
         ];
     }
 }

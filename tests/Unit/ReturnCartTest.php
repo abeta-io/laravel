@@ -90,6 +90,10 @@ class ReturnCartTest extends TestCase
             category_codes: ['47101501'],
             image_url: 'http://example.com/image.jpg',
             categories: ['Category 1', 'Category 2'],
+            meta: [
+                    'key' => 'attribute_name',
+                    'value' => 'attribute_value',
+                ]
         );
 
         // Add product to cart
