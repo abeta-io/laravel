@@ -46,14 +46,17 @@ $product = new Product(
     price_inc_vat: 60.00,
     vat_percentage: 20.00,
     quantity: 2,
-    price_unit: 30,
-    unit: 'pcs',
+    price_unit: 30,     // The amount of units the product price is denominated in.
+    unit: 'PCE',        // Unit of the product, e.g. KG, PCE, etc.
     brand: 'Brand Name',
-    weight: 1.5,
+    weight: 1.5,        // Weight in kG or G
     manufacturer_number: 'MANUF-001',
     category_codes: ['47101501'],
     image_url: 'http://example.com/image.jpg',
     categories: ['Category 1', 'Category 2'],
+    meta: [ 
+        //meta values in preferred array format
+    ]
 );
 
 // Add product to cart
