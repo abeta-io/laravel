@@ -56,7 +56,8 @@ $product = new Product(
     categories: ['Category 1', 'Category 2'],
     meta: [ 
         //meta values in preferred array format
-    ]
+    ],
+    original_price: 100.00 //Price before discount
 );
 
 // Add product to cart

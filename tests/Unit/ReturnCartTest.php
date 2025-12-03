@@ -52,6 +52,7 @@ class ReturnCartTest extends TestCase
             'delivery_datetime' => '2024-11-10 20:29',
         ]);
 
+        //Product 
         $product1 = new Product(
             id: 1,
             sku: 'PROD-001',
@@ -93,7 +94,8 @@ class ReturnCartTest extends TestCase
             meta: [
                     'key' => 'attribute_name',
                     'value' => 'attribute_value',
-                ]
+            ],
+            original_price: 100,
         );
 
         // Add product to cart
