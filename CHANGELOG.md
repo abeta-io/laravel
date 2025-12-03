@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.3.0 - 2025-12-03
+
+Added original_price to Product Model.
+
 ## v2.2.3 - 2025-09-08
 
 Added Product Meta Field
