@@ -24,6 +24,7 @@ class Product
         public ?string $image_url = null,
         public ?array $categories = [],
         public ?array $meta = [],
+        public ?float $original_price = null,
     ) {
         $this->validate();
     }
@@ -63,7 +64,8 @@ class Product
             $data['category_codes'] ?? [],
             $data['image_url'] ?? null,
             $data['categories'] ?? [],
-            $data['meta'] ?? []
+            $data['meta'] ?? [],
+            $data['original_price'] ?? null,
         );
     }
 
@@ -90,6 +92,7 @@ class Product
             'image_url' => $this->image_url,
             'categories' => $this->categories,
             'meta' => $this->meta,
+            'original_price' => $this->original_price,
         ];
     }
 }
