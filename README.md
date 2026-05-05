@@ -1,8 +1,10 @@
 # Abeta for Laravel
 
-The official Laravel plugin for Abeta.
-Offer OCI and cXML PunchOut quickly and easily with Abeta. Connect with procurement systems / ERPs such as Coupa, Oracle and Sap Ariba. 
-Increase the turnover of existing customers or acquire new customers with the help of B2B connections.
+The official [https://abeta.io](Laravel Punchout plugin for Abeta). 
+Offer OCI and cXML PunchOut quickly and easily with Abeta. Connect with procurement systems / ERPs such as Coupa, Oracle and Sap Ariba. Increase the turnover of existing customers or acquire new customers with the help of B2B connections.
+
+# Requirements
+To properly use this plugin a registered Abeta account is needed! 
 
 ## Installation
 
