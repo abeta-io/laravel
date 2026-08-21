@@ -56,7 +56,7 @@ class OrderController
                 'code' => 401,
             ], 422);
         } catch (Exception $e) {
-            Log::error('Order confirmation error: '.$e->getMessage(), $e->getTrace());
+            Log::error('Order confirmation error: '.$e->getMessage(), ['exception' => $e]);
 
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
