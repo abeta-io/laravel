@@ -18,11 +18,15 @@ class ReturnCart
     public function __construct(CartBuilder $builder)
     {
         $this->builder = $builder;
+    }
 
-        // Check if session is available and set returnUrl if so
-        if (Session::has('abeta_punchout.return_url')) {
-            $this->returnUrl = Session::get('abeta_punchout.return_url');
-        }
+    /**
+     * Resolve the return URL at the moment it is needed, rather than when this
+     * service is constructed. An explicitly set URL wins over the session.
+     */
+    protected function returnUrl(): ?string
+    {
+        return $this->returnUrl ?? Session::get('abeta_punchout.return_url');
     }
 
     /**
@@ -47,7 +51,9 @@ class ReturnCart
     public function execute(): bool
     {
         // Check if return URL is set, either from session or overridden
-        if (is_null($this->returnUrl)) {
+        $returnUrl = $this->returnUrl();
+
+        if (is_null($returnUrl)) {
             throw new ReturnCartException('The return URL is not set.');
         }
 
@@ -57,7 +63,7 @@ class ReturnCart
         // Send the request to the external service
         $response = Http::timeout(5)
             ->retry(3)
-            ->post($this->returnUrl, $cartData);
+            ->post($returnUrl, $cartData);
 
         // If the HTTP request fails, throw a custom exception
         if (! $response->successful()) {
@@ -72,7 +78,9 @@ class ReturnCart
      */
     public function returnCustomer(): RedirectResponse
     {
-        if (is_null($this->returnUrl)) {
+        $returnUrl = $this->returnUrl();
+
+        if (is_null($returnUrl)) {
             throw new ReturnCartException('The return URL is not set for redirection.');
         }
 
@@ -81,7 +89,7 @@ class ReturnCart
             Session::forget(['abeta_punchout.return_url', 'abeta_punchout.user_id']);
         }
 
-        return redirect($this->returnUrl);
+        return redirect($returnUrl);
     }
 
     /**
