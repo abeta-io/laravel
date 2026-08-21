@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Faker\Factory as Faker;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -126,5 +127,29 @@ class PunchOutTest extends TestCase
                 'message' => 'Api key is invalid',
                 'error' => 404,
             ]);
+    }
+
+    /**
+     * Test that no request is authenticated while the API key is not configured.
+     */
+    public function test_requests_are_refused_when_api_key_is_not_configured(): void
+    {
+        foreach ([null, ''] as $unconfigured) {
+            config(['abeta.api_key' => $unconfigured]);
+
+            $this->post(route('abeta.setupRequest'), [
+                'username' => $this->username,
+                'password' => $this->password,
+                'api_key' => $unconfigured,
+            ])->assertStatus(500)
+                ->assertJson(['message' => 'API key is not set in configuration']);
+
+            $this->post(route('abeta.order.confirm'), [
+                'api_key' => $unconfigured,
+                'cart_id' => '12345',
+                'customer_reference' => 'REF-1',
+            ])->assertStatus(500)
+                ->assertJson(['message' => 'API key is not set in configuration']);
+        }
     }
 }

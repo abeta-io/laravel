@@ -21,7 +21,7 @@ class PunchOutController
     {
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
-        if (is_null($apiKey)) {
+        if (blank($apiKey)) {
             return AbetaPunchOut::returnResponse(['message' => 'API key is not set in configuration', 'error' => 500], 500);
         }
 

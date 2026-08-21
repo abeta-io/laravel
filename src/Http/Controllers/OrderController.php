@@ -24,7 +24,7 @@ class OrderController
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
 
-        if (is_null($apiKey)) {
+        if (blank($apiKey)) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'message' => 'API key is not set in configuration',
