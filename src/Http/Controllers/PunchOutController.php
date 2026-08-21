@@ -44,7 +44,7 @@ class PunchOutController
 
             $url = URL::temporarySignedRoute(
                 'abeta.login',
-                Carbon::now()->addMinutes(20),
+                Carbon::now()->addMinute(),
                 ['user_id' => $user->id, 'return_url' => $request->input('return_url')]
             );
 
