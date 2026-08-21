@@ -25,15 +25,15 @@ class PunchOutController
             return AbetaPunchOut::returnResponse(['message' => 'API key is not set in configuration', 'error' => 500], 500);
         }
 
-        $username_email = $request->input('username') ?? $request->input('email');
+        $username_email = $request->json('username') ?? $request->json('email');
 
-        if ($request->input('api_key') !== $apiKey) {
+        if ($request->json('api_key') !== $apiKey) {
             return AbetaPunchOut::returnResponse(['message' => 'Api key is invalid', 'error' => 404], 404);
         }
 
         if (! AbetaPunchOut::getAuth()::validate([
             AbetaPunchOut::getCredentialUsername() => $username_email,
-            AbetaPunchOut::getCredentialPassword() => $request->input('password'),
+            AbetaPunchOut::getCredentialPassword() => $request->json('password'),
         ])) {
             return AbetaPunchOut::returnResponse(['message' => 'Credentials seem to be invalid', 'error' => 401], 401);
         } else {
@@ -45,7 +45,7 @@ class PunchOutController
             $url = URL::temporarySignedRoute(
                 'abeta.login',
                 Carbon::now()->addMinute(),
-                ['user_id' => $user->id, 'return_url' => $request->input('return_url')]
+                ['user_id' => $user->id, 'return_url' => $request->json('return_url')]
             );
 
             return AbetaPunchOut::returnResponse(['one_time_url' => $url], 200);

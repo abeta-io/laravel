@@ -32,7 +32,7 @@ class PurchaseOrderTest extends TestCase
     {
         Event::fake();
 
-        $response = $this->post(route('abeta.order.confirm'), $this->purchaseOrder());
+        $response = $this->postJson(route('abeta.order.confirm'), $this->purchaseOrder());
 
         Event::assertDispatched(OrderReceived::class, function ($event) {
             $po = $this->purchaseOrder();

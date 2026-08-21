@@ -31,7 +31,7 @@ class OrderController
             ], 500);
         }
 
-        if ($request->input('api_key') !== $apiKey) {
+        if ($request->json('api_key') !== $apiKey) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'message' => 'Api key is invalid',

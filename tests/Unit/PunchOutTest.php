@@ -53,7 +53,7 @@ class PunchOutTest extends TestCase
     {
         $return_url = $this->faker->url();
 
-        $response = $this->post(route('abeta.setupRequest'), [
+        $response = $this->postJson(route('abeta.setupRequest'), [
             'username' => $this->username,
             'password' => $this->password,
             'api_key' => $this->api_key,
@@ -80,7 +80,7 @@ class PunchOutTest extends TestCase
      */
     public function test_user_cannot_login_via_setup_request_with_incorrect_password(): void
     {
-        $response = $this->post(route('abeta.setupRequest'), [
+        $response = $this->postJson(route('abeta.setupRequest'), [
             'username' => $this->username,
             'password' => 'salted'.$this->password,
             'api_key' => $this->api_key,
@@ -98,7 +98,7 @@ class PunchOutTest extends TestCase
      */
     public function test_user_cannot_login_via_setup_request_with_incorrect_username(): void
     {
-        $response = $this->post(route('abeta.setupRequest'), [
+        $response = $this->postJson(route('abeta.setupRequest'), [
             'username' => 'salted'.$this->username,
             'password' => $this->password,
             'api_key' => $this->api_key,
@@ -116,7 +116,7 @@ class PunchOutTest extends TestCase
      */
     public function test_user_cannot_login_via_setup_request_with_incorrect_api_key(): void
     {
-        $response = $this->post(route('abeta.setupRequest'), [
+        $response = $this->postJson(route('abeta.setupRequest'), [
             'username' => $this->username,
             'password' => $this->password,
             'api_key' => 'salted'.$this->api_key,
@@ -137,14 +137,14 @@ class PunchOutTest extends TestCase
         foreach ([null, ''] as $unconfigured) {
             config(['abeta.api_key' => $unconfigured]);
 
-            $this->post(route('abeta.setupRequest'), [
+            $this->postJson(route('abeta.setupRequest'), [
                 'username' => $this->username,
                 'password' => $this->password,
                 'api_key' => $unconfigured,
             ])->assertStatus(500)
                 ->assertJson(['message' => 'API key is not set in configuration']);
 
-            $this->post(route('abeta.order.confirm'), [
+            $this->postJson(route('abeta.order.confirm'), [
                 'api_key' => $unconfigured,
                 'cart_id' => '12345',
                 'customer_reference' => 'REF-1',
@@ -152,4 +152,30 @@ class PunchOutTest extends TestCase
                 ->assertJson(['message' => 'API key is not set in configuration']);
         }
     }
+
+    /**
+     * Credentials must be read from the JSON body.
+     */
+    public function test_credentials_are_read_from_the_body_only(): void
+    {
+        $this->postJson(route('abeta.setupRequest'), [
+            'username' => $this->username,
+            'password' => $this->password,
+            'api_key' => $this->api_key,
+            'return_url' => 'https://example.com/return',
+        ])->assertStatus(200)->assertJsonStructure(['one_time_url']);
+
+        $this->post(route('abeta.setupRequest').'?'.http_build_query([
+            'username' => $this->username,
+            'password' => $this->password,
+            'api_key' => $this->api_key,
+        ]))->assertStatus(404)->assertJson(['message' => 'Api key is invalid']);
+
+        $this->get(route('abeta.setupRequest').'?'.http_build_query([
+            'username' => $this->username,
+            'password' => $this->password,
+            'api_key' => $this->api_key,
+        ]))->assertStatus(405);
+    }
+
 }
