@@ -27,7 +27,8 @@ class PunchOutController
 
         $username_email = $request->json('username') ?? $request->json('email');
 
-        if ($request->json('api_key') !== $apiKey) {
+        $sentKey = $request->json('api_key');
+        if (! is_string($sentKey) || ! hash_equals((string) $apiKey, $sentKey)) {
             return AbetaPunchOut::returnResponse(['message' => 'Api key is invalid', 'error' => 404], 404);
         }
 
