@@ -27,7 +27,7 @@ return [
     */
     'password' => 'password',
 
-    'api_key' => env('ABETA_API_KEY', ''),
+    'api_key' => env('ABETA_API_KEY'),
 
     'routes' => [
 

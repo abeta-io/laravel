@@ -19,7 +19,7 @@ class AbetaServiceProvider extends ServiceProvider
             return new AbetaPunchOut;
         });
 
-        $this->app->singleton('return-cart', function ($app) {
+        $this->app->scoped('return-cart', function ($app) {
             return new ReturnCart(new CartBuilder);
         });
 

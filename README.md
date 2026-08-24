@@ -268,4 +268,10 @@ return [
     */
     'password' => 'password',
 
+    /*
+    * Shared secret used to authenticate the Abeta Middleware. Required: while
+    * this is empty every request to the package routes is rejected with a 500.
+    */
+    'api_key' => env('ABETA_API_KEY'),
+
 ];

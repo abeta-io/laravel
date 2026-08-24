@@ -24,14 +24,15 @@ class OrderController
         // Check if the API key is set in the configuration
         $apiKey = config('abeta.api_key');
 
-        if (is_null($apiKey)) {
+        if (blank($apiKey)) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'message' => 'API key is not set in configuration',
             ], 500);
         }
 
-        if ($request->input('api_key') !== $apiKey) {
+        $sentKey = $request->json('api_key');
+        if (! is_string($sentKey) || ! hash_equals((string) $apiKey, $sentKey)) {
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
                 'message' => 'Api key is invalid',
@@ -55,7 +56,7 @@ class OrderController
                 'code' => 401,
             ], 422);
         } catch (Exception $e) {
-            Log::error('Order confirmation error: '.$e->getMessage(), $e->getTrace());
+            Log::error('Order confirmation error: '.$e->getMessage(), ['exception' => $e]);
 
             return AbetaPunchOut::returnResponse([
                 'status' => 'error',
